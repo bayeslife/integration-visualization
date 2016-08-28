@@ -1,0 +1,13 @@
+[
+  { "name": "dotnet-api-1",
+    "type": "DotNetAPI",
+    "dependencies": [ "integration-api-1" ]
+  },
+  { "name": "integration-api-1",
+    "type": "WebAPI",
+    "dependencies": [ "integration-api-2" ]
+  },
+  { "name": "integration-api-2",
+    "type": "WebAPI"    
+  }
+]

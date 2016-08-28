@@ -1,0 +1,21 @@
+{
+  "name": "valuestream",
+  "version": "1.0.0",
+  "description": "Render the value stream of IT services",
+  "main": "transformer.js",
+  "watch": {
+    "transform": {
+      "patterns": [
+        "."
+      ],
+      "extensions": "js"
+    }
+  },
+  "scripts": {
+    	"test": "echo \"Error: no test specified\" && exit 1",
+	"transform":"clear && node transformer.js metadata.test.json",
+	"watch": "npm-watch"
+  },
+  "author": "Phil Tomlinson",
+  "license": "ISC"
+}

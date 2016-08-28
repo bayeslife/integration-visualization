@@ -1,0 +1,39 @@
+[
+  { "name": "dotnet-api-1",
+    "type": "DotNetAPI",
+    "dependencies": [ "integration-api-1" ]
+  },
+  { "name": "integration-api-1",
+    "type": "WebAPI",
+    "dependencies": [ "application-api-1", "integration-api-2","supplier-api-1" ]
+  },
+  { "name": "integration-api-2",
+    "type": "WebAPI",
+    "dependencies": [ "application-api-2" ]
+  },
+  {
+    "type": "Application",
+    "name": "application1",
+    "apis": [
+      {
+          "name": "application-api-1"
+      },
+      {
+          "name": "application-api-2"
+      }
+    ]
+  },
+  {
+    "type": "Site",
+    "name": "site-1",
+    "dependencies": [ "dotnet-api-1"]
+  },
+  {
+    "type": "Supplier",
+    "name": "supplier-1",
+    "apis":[
+      { "name": "supplier-api-1"
+      }
+    ]
+  }
+]
