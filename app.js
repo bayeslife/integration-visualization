@@ -29,8 +29,8 @@ var OPACITY = {
     LEFT: OUTER_MARGIN
   },
   TRANSITION_DURATION = 500,
-  HEIGHT = 800 - MARGIN.TOP - MARGIN.BOTTOM,
-  WIDTH = 1200 - MARGIN.LEFT - MARGIN.RIGHT,
+  HEIGHT = 600 - MARGIN.TOP - MARGIN.BOTTOM,
+  WIDTH = 960 - MARGIN.LEFT - MARGIN.RIGHT,
   LAYOUT_INTERATIONS = 20,
   REFRESH_INTERVAL = 7000;
 
@@ -401,7 +401,7 @@ function update () {
           .text(function () {
             var additionalInstructions = g.children.length ? "\n(Double click to expand)" : "";
             //return g.name + "\nNet flow: " + g.netFlow + additionalInstructions;
-            return g.name;
+            return g.name + "\n"+ g.container;
           });
     }
   });

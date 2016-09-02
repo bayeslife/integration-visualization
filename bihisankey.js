@@ -259,7 +259,12 @@ d3.biHiSankey = function () {
         // keep decrementing the x value of the node
         // unless it would have the same x value as one of its source or target nodes
         // or node.x is already 0
-        while (node.x > 0 && connectedNodesXPositions.indexOf(node.x - 1) < 0) {
+        var nodemin = 0;
+        if(node.min){
+          nodemin = node.min;
+        }
+
+        while (node.x > nodemin && connectedNodesXPositions.indexOf(node.x - 1) < 0) {
           node.x -= 1;
         }
       });
@@ -286,18 +291,20 @@ d3.biHiSankey = function () {
           }
         },
         setValues = function (node) {
-          if(node.type=='supplier-api'){
-             node.x = 30+x;
-           } else if(node.type=='supplier'){
-               node.x = 30+x;
-          } else if(node.type=='integration'){
-              node.x = 10+x;
-          } else if(node.type=='application-api'){
-              node.x = 20+x;
-          } else if(node.type=='application'){
-              node.x = 20+x;
-
-          }else
+          // if(node.type=='supplier-api'){
+          //    node.x = 30+x;
+          //  } else if(node.type=='supplier'){
+          //      node.x = 30+x;
+          // } else if(node.type=='integration'){
+          //     node.x = 10+x;
+          // } else if(node.type=='application-api'){
+          //     node.x = 20+x;
+          // } else if(node.type=='application'){
+          //     node.x = 20+x;
+          //
+          if(node.min){
+            node.x = node.min+ x;
+          } else
             node.x = x;
           node.width = nodeWidth;
           node.sourceLinks.forEach(addToNextNodes, node);

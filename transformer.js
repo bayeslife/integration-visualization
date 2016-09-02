@@ -68,10 +68,10 @@ function renderHierarchy(o){
 
   o.filter(c => c.type=='Application')
    .subscribe(function(application){
-     writenode({ type: 'application',id: application.name, parent: 'Service', name: application.name });
+     writenode({ type: 'application',id: application.name, parent: 'Service', name: application.name, min: 4 });
      if(application.apis){
        Rx.Observable.from(application.apis).subscribe(function(api){
-         writenode({ type: 'application-api',id: api.name, parent: application.name, name: api.name });
+         writenode({ type: 'application-api',id: api.name, parent: application.name, name: api.name, min: 4 });
 
        })
      }
@@ -79,10 +79,10 @@ function renderHierarchy(o){
 
   o.filter(c => c.type=='Supplier')
    .subscribe(function(application){
-     writenode({ type: 'supplier',id: application.name, parent: 'Supplier', name: application.name });
+     writenode({ type: 'supplier',id: application.name, parent: 'Supplier', name: application.name , min: 6 });
      if(application.apis){
        Rx.Observable.from(application.apis).subscribe(function(api){
-         writenode({ type: 'supplier-api',id: api.name, parent: application.name, name: api.name });
+         writenode({ type: 'supplier-api',id: api.name, parent: application.name, name: api.name, min: 6 });
 
        })
      }
@@ -90,22 +90,22 @@ function renderHierarchy(o){
 
 
   o.filter(c => c.type=='WebAPI').subscribe(function(c){
-    writenode({ type: 'integration',id: c.name, parent: "Mule", name: c.name })
+    writenode({ type: 'integration',id: c.name, parent: "Mule", name: c.name, min: 2 })
   })
 
   o.filter(c => c.type=='DotNetAPI').subscribe(function(c){
-    writenode({ type: 'integration',id: c.name, parent: "DotNet", name: c.name })
+    writenode({ type: 'integration',id: c.name, parent: "DotNet", name: c.name, min: 2  })
 
   })
   o.filter(c => c.type=='SoaAPI').subscribe(function(c){
-    writenode({ type: 'integration',id: c.name, parent: "Mule", name: c.name })
+    writenode({ type: 'integration',id: c.name, parent: "Mule", name: c.name, min: 2  })
 
   })
   o.filter(c => c.type=='EventProcessor').subscribe(function(c){
-    writenode({ type: 'integration',id: c.name, parent: "Mule", name: c.name })
+    writenode({ type: 'integration',id: c.name, parent: "Mule", name: c.name, min: 2  })
   })
 
-  writecontent('];')
+  writecontent('];\n')
 }
 
 function renderLinks(o){
@@ -114,7 +114,7 @@ function renderLinks(o){
 
   o.filter(i => i.type =='EventProcessor')
   .subscribe(function(c){
-    writelink({ source: 'AMQ',target: c.name, value: 1 });
+    writelink({ source: 'openwire',target: c.name, value: 1 });
       if(c.dependencies){
        Rx.Observable.from(c.dependencies).subscribe(function(d){
          writelink({ source: c.name,target: d, value: 1 });
@@ -145,5 +145,5 @@ function renderLinks(o){
     }
    })
 
-  writecontent(']')
+  writecontent('];\n')
 }
