@@ -12,11 +12,14 @@
     }
   },
   "scripts": {
-    	"test": "echo \"Error: no test specified\" && exit 1",
-     	"transform":"clear && node transformer.js complex.test.json",
-       	"selfcontained":"rm -f selfcontained.html && cat index.part1.html > selfcontained.html && cat data.json >> selfcontained.html && cat d3.v3.min.js >> selfcontained.html && cat bihisankey.js  >> selfcontained.html && cat app.js >> selfcontained.html  && cat index.part2.html >> selfcontained.html ",
-	 "watch": "npm-watch"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transform": "clear && node transformer.js -m complex.test.json -o build/data.json",
+    "selfcontained": "rm -f selfcontained.html && cat index.part1.html > selfcontained.html && cat data.json >> selfcontained.html && cat d3.v3.min.js >> selfcontained.html && cat bihisankey.js  >> selfcontained.html && cat app.js >> selfcontained.html  && cat index.part2.html >> selfcontained.html ",
+    "watch": "npm-watch"
   },
   "author": "Phil Tomlinson",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^5.0.0"
+  }
 }

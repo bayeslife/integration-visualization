@@ -1,36 +1,24 @@
-var filename=process.argv[2];
+//var filename=process.argv[2];
 
-console.log("Source:"+ filename);
+
 
 var Rx = require('rxjs/Rx');
 
 var fs = require('fs');
 
+var yargs  = require('yargs')
 
 var strands = require('strands');
 
 var content = strands.strand(" ","","");
 
+var pkg = require('../../package.json');
+
+var argv = process.argv;
+
 var defined_nodes ={};
 var referred_nodes ={};
 
-
-fs.readFile(filename,function(err,raw){
-  var metadata = JSON.parse(raw);
-
-  var o = Rx.Observable.from(metadata);
-  renderHierarchy(o)
-  renderLinks(o);
-
-  fs.writeFile("data.json",content.toString());
-
-  for(each in referred_nodes){
-    if(!defined_nodes[each]){
-      console.log("Missing definition:"+ each);
-    }
-
-  }
-})
 
 function writenode(json){
   writecontent(json),
@@ -147,3 +135,37 @@ function renderLinks(o){
 
   writecontent('];\n')
 }
+
+
+var args = yargs
+    .usage(pkg.description + "\n\n$0 --model [model file] --out [directory] ")
+    .version(pkg.version, 'version')
+    .demand('o')
+    .alias('o', 'out')
+    .describe('o', 'Out directory')
+    .alias('m', 'model')
+    .describe('m', 'Path to model file')
+    .parse(argv);
+
+var filename=args['m'];
+var outfile=args['o'];
+
+console.log("Source:"+ filename);
+console.log("Output:"+ outfile);
+
+fs.readFile(filename,function(err,raw){
+  var metadata = JSON.parse(raw);
+
+  var o = Rx.Observable.from(metadata);
+  renderHierarchy(o)
+  renderLinks(o);
+
+  fs.writeFile(outfile,content.toString());
+
+  for(each in referred_nodes){
+    if(!defined_nodes[each]){
+      console.log("Missing definition:"+ each);
+    }
+
+  }
+})

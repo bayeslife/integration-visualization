@@ -1,0 +1,125 @@
+[
+  { "name": "anonymous-jwt",
+    "type": "DotNetAPI",
+    "dependencies": [ "adfs-ws-trust" ]
+  },
+  { "name": "dps-failsafe-notification",
+    "type": "DotNetAPI",
+    "dependencies": [ "online-payment-result" ]
+  },
+  { "name": "customer-amount-owed-description",
+    "type": "WebAPI",
+    "dependencies": [ "customer-amount-owed", "policy-description" ]
+  },
+  { "name": "customer-amount-owed",
+    "type": "WebAPI",
+    "dependencies": [ "crm-amount-owed" ]
+  },
+  { "name": "policy-description",
+    "type": "WebAPI",
+    "dependencies": [ "soa-retrieve-insurance-policy-details" ]
+  },
+  { "name": "online-payment-result",
+    "type": "WebAPI",
+    "dependencies": [ "mom-event-api" ]
+  },
+  { "name": "online-payment-attempt",
+    "type": "WebAPI",
+    "dependencies": [ "payment-manager-create","generate-request" ]
+  },
+  { "name": "mom-event-api",
+      "type": "WebAPI",
+      "dependencies": [ "openwire" ]
+  },
+  { "name": "soa-retrieve-insurance-policy-details",
+    "type": "SoaAPI",
+    "dependencies": [  ]
+  },
+  { "name": "transfer-funds-to-policy",
+    "type": "EventProcessor",
+    "dependencies": [ "crm-transfer-funds-to-policy" ]
+  },
+  { "name": "payment-result-event-processor",
+    "type": "EventProcessor",
+    "dependencies": [ "payment-manager-payment-result", "payment-response" ]
+  },
+  { "name": "payment-confirmation-api",
+    "type": "WebAPI",
+    "dependencies": [ "mom-event-api" ]
+  },
+  { "name": "payment-confirmation-event-processor",
+    "type": "EventProcessor",
+    "dependencies": [ "policy-description","payment-manager-get","submit-form" ]
+  },
+  {
+    "type": "Application",
+    "name": "payment-manager",
+    "apis": [
+      {
+          "name": "payment-manager-create",
+          "dependencies": [  ]
+      },{
+          "name": "payment-manager-payment-result",
+          "dependencies": [ "mom-event-api" ]
+      },
+      {
+          "name": "payment-manager-get",
+          "dependencies": [ ]
+      }
+    ]
+  },
+  {
+    "type": "Site",
+    "name": "pay.biz.co.nz",
+    "dependencies": [ "customer-amount-owed-description","anonymous-jwt","dps-failsafe-notification", "online-payment-attempt", "payment-confirmation-api" ]
+  },
+  {
+    "type": "Application",
+    "name": "ADFS",
+    "apis":[
+      { "name": "adfs-ws-trust",
+        "dependencies": [  ]
+      }
+    ]
+  },
+  {
+    "type": "Application",
+    "name": "CRM",
+    "apis":[
+      { "name": "crm-amount-owed",
+        "dependencies": [  ]
+      },
+      { "name": "crm-transfer-funds-to-policy",
+        "dependencies": [  ]
+      }
+    ]
+  },
+  {
+    "type": "Supplier",
+    "name": "PaymentProvider",
+    "apis":[
+      { "name": "generate-request",
+        "dependencies": [  ]
+      },
+      { "name": "payment-response",
+        "dependencies": [  ]
+      }
+    ]
+  },
+  {
+    "type": "Supplier",
+    "name": "Supplier1",
+    "apis":[
+      { "name": "submit-form"
+      }
+    ]
+  },
+  {
+    "type": "Application",
+    "name": "AMQ",
+    "apis":[
+      { "name": "openwire"
+      }
+    ]
+  }
+]
